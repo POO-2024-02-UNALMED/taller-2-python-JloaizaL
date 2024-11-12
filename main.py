@@ -37,16 +37,32 @@ class Auto:
     def cantidadAsientos(self):
         contador = 0
         for asiento in self.asientos:
-            if asiento != "null":
+            if asiento != None:
                 contador += 1
         return contador
 
     def verificarIntegridad(self):
         if self.registro != self.motor.registro:
+            print(1)
             return "Las piezas no son originales"
         
         for asiento in self.asientos:
-            if asiento.registro != "null" and asiento.registro != self.registro:
-                return "Las piezas no son originales"
+            if asiento is not None:
+                if asiento.registro != self.registro:
+                    print(3)
+                    return "Las piezas no son originales"
             
         return "Auto original"
+    
+
+a1 = Auto("model 3", 33000, [Asiento("blanco", 5000, 32),None, None, Asiento("blanco", 5000, 32), None],
+"tesla", Motor(4, "electrico", 32), 32)
+a2 = Auto("model 3", 33000, [Asiento("blanco", 5000, 40),None, None, Asiento("blanco", 5000, 32), None],
+"tesla", Motor(4, "electrico", 32), 32)
+
+ok = False
+		
+if(a1.verificarIntegridad() == "Auto original" and 
+        a2.verificarIntegridad() == "Las piezas no son originales"):
+    ok = True
+print(ok)
